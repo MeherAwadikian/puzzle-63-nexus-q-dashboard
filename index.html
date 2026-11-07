@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus-Q — Operations Intelligence</title>
+  <meta name="description" content="Nexus-Q analytics dashboard: real-time operations intelligence, revenue, sessions, request latency and account health." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236d5efc'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3EQ%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">Q</span>
+        <span class="brand-text">Nexus<span class="brand-dim">-Q</span></span>
+      </div>
+
+      <nav class="nav">
+        <p class="nav-label">Overview</p>
+        <a class="nav-item is-active" href="#"><span class="nav-ic" aria-hidden="true">▦</span> Dashboard</a>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">◴</span> Real-time</a>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">⤢</span> Traffic</a>
+        <p class="nav-label">Operations</p>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">⚑</span> Incidents <span class="nav-badge">3</span></a>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">⛁</span> Services</a>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">◫</span> Accounts</a>
+        <p class="nav-label">Account</p>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">⚙</span> Settings</a>
+        <a class="nav-item" href="#"><span class="nav-ic" aria-hidden="true">?</span> Help</a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="plan-card">
+          <p class="plan-title">Scale plan</p>
+          <p class="plan-sub">68% of quota used</p>
+          <div class="meter"><span style="width:68%"></span></div>
+          <button class="btn btn-ghost btn-block">Manage plan</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Top bar -->
+      <header class="topbar">
+        <button class="icon-btn only-mobile" id="menuBtn" aria-label="Toggle navigation">☰</button>
+        <div class="page-head">
+          <h1>Operations overview</h1>
+          <p class="crumbs">Workspace · <strong>Production</strong> · last 30 days</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="search">
+            <span class="search-ic" aria-hidden="true">⌕</span>
+            <input type="search" placeholder="Search metrics, services…" aria-label="Search" />
+          </div>
+          <div class="seg" role="group" aria-label="Date range">
+            <button class="seg-btn" data-range="7d">7d</button>
+            <button class="seg-btn is-active" data-range="30d">30d</button>
+            <button class="seg-btn" data-range="90d">90d</button>
+          </div>
+          <button class="icon-btn" aria-label="Notifications">🔔<span class="dot"></span></button>
+          <div class="avatar" title="Meher K.">MK</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- KPI cards -->
+        <section class="kpis" aria-label="Key metrics">
+          <!-- cards injected by app.js -->
+        </section>
+
+        <!-- Charts row -->
+        <section class="grid-2">
+          <article class="card chart-card">
+            <div class="card-head">
+              <div>
+                <h2>Revenue &amp; active sessions</h2>
+                <p class="muted">Monthly recurring revenue against peak concurrent sessions</p>
+              </div>
+              <div class="legend">
+                <span class="lg"><i class="sw sw-primary"></i> MRR</span>
+                <span class="lg"><i class="sw sw-accent"></i> Sessions</span>
+              </div>
+            </div>
+            <div class="chart" id="areaChart"></div>
+          </article>
+
+          <article class="card chart-card">
+            <div class="card-head">
+              <div>
+                <h2>Traffic by source</h2>
+                <p class="muted">Share of sessions over the period</p>
+              </div>
+            </div>
+            <div class="donut-wrap">
+              <div class="chart donut" id="donutChart"></div>
+              <ul class="donut-legend" id="donutLegend"></ul>
+            </div>
+          </article>
+        </section>
+
+        <!-- Bar + table row -->
+        <section class="grid-2b">
+          <article class="card chart-card">
+            <div class="card-head">
+              <div>
+                <h2>Requests by region</h2>
+                <p class="muted">Millions of API requests served, last 7 days</p>
+              </div>
+            </div>
+            <div class="chart" id="barChart"></div>
+          </article>
+
+          <article class="card table-card">
+            <div class="card-head">
+              <div>
+                <h2>Top accounts</h2>
+                <p class="muted">Ranked by usage this cycle</p>
+              </div>
+              <button class="btn btn-ghost">Export</button>
+            </div>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Account</th>
+                    <th>Plan</th>
+                    <th class="num">Requests</th>
+                    <th class="num">Latency</th>
+                    <th>Health</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"><!-- rows injected --></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <footer class="content-foot">
+          <span>Nexus-Q · operations intelligence</span>
+          <span class="muted">Data shown is synthetic demo data · rendered client-side</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
