@@ -1,4 +1,4 @@
-# Puzzle #63 — "Nexus-Q" dashboard recreation
+# Puzzle #63: "Nexus-Q" dashboard recreation
 
 **Brief (TRW #automate-me-this-puzzle, 2026-03-20):** recreate the "Nexus-Q" dashboard
 screenshot in 3 prompts or fewer using a vibe-coding tool (Bolt / v0 / Lovable).
@@ -8,7 +8,7 @@ sidebar nav, top bar, four KPI stat cards (each with a live-drawn sparkline), a 
 revenue/sessions area+line chart, a traffic-source donut, a requests-by-region bar chart,
 and a top-accounts data table with health status. Plain HTML/CSS/JS, no build step,
 no runtime dependencies. Every chart is hand-drawn SVG computed from the data arrays in
-`app.js` — there is no charting library.
+`app.js`; there is no charting library.
 
 ## Live
 
@@ -45,13 +45,13 @@ result is a complete, polished artifact rather than a tool-generated one.
 
 ## Charts (all hand-drawn SVG, no library)
 
-- **KPI sparklines** — min/max-normalised polyline + gradient area fill, last-point dot.
-- **Revenue & sessions** — dual-series combo: MRR as area+line on a left `$k` axis with
+- **KPI sparklines**: min/max-normalised polyline + gradient area fill, last-point dot.
+- **Revenue & sessions**: dual-series combo. MRR as area+line on a left `$k` axis with
   gridlines and month labels, peak sessions as a dashed overlay line, each series scaled to
   its own range so both read clearly.
-- **Traffic by source** — donut built from `stroke-dasharray` arc segments around a ring,
+- **Traffic by source**: donut built from `stroke-dasharray` arc segments around a ring,
   with a centre total and an external legend showing each source's share.
-- **Requests by region** — vertical bars with a gradient fill, value labels and category
+- **Requests by region**: vertical bars with a gradient fill, value labels and category
   labels, drawn against gridlines.
 
 Charts re-render on window resize (rAF-debounced) and use a `viewBox` so they scale fluidly.
